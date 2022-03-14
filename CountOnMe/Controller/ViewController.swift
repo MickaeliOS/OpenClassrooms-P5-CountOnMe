@@ -47,7 +47,6 @@ class ViewController: UIViewController {
     
     @IBAction func tappedOperandButton(_ sender: UIButton) {
         isTheOperationPossible(button: sender)
-        print(count.elements)
     }
 
     @IBAction func tappedEqualButton(_ sender: UIButton) {
@@ -57,16 +56,21 @@ class ViewController: UIViewController {
             return self.present(alertVC, animated: true, completion: nil)
         }
         
-        print(count.elements)
         guard count.expressionHaveEnoughElement else {
             let alertVC = UIAlertController(title: "Zéro!", message: "Démarrez un nouveau calcul !", preferredStyle: .alert)
             alertVC.addAction(UIAlertAction(title: "OK", style: .cancel, handler: nil))
             return self.present(alertVC, animated: true, completion: nil)
         }
         
-        let operationsToReduce = count.calculateOperation()
-        
-        textView.text.append(" = \(operationsToReduce.first!)")
+        if let operationsToReduce = count.calculateOperation() {
+            
+            textView.text.append(" = \(operationsToReduce.first!)")
+            
+        } else {
+            let alertVC = UIAlertController(title: "Zéro!", message: "Error, unknown operand !", preferredStyle: .alert)
+            alertVC.addAction(UIAlertAction(title: "OK", style: .cancel, handler: nil))
+            return self.present(alertVC, animated: true, completion: nil)
+        }
     }
 
     private func isTheOperationPossible(button: UIButton) {
@@ -81,7 +85,9 @@ class ViewController: UIViewController {
                 case "/":
                     textView.text.append(" / ")
                 default:
-                    fatalError("Unknown operator !")
+                    let alertVC = UIAlertController(title: "Zéro!", message: "Error, unknown operand !", preferredStyle: .alert)
+                    alertVC.addAction(UIAlertAction(title: "OK", style: .cancel, handler: nil))
+                    self.present(alertVC, animated: true, completion: nil)
             }
             
             count.addOperand(operand: button.title(for: .normal)!)

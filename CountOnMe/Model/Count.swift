@@ -27,29 +27,32 @@ class Count {
         return elements.count >= 3
     }
     
-    func calculateOperation() -> [String] {
+    func calculateOperation() -> [String]? {
         
         // Create local copy of operations
         var operationsToReduce = elements
         
         // Iterate over operations while an operand still here
         while operationsToReduce.count > 1 {
-            let left = Float(operationsToReduce[0])!
-            let operand = operationsToReduce[1]
-            let right = Float(operationsToReduce[2])!
+            
+            let index = findPriority(operation: operationsToReduce)
+            
+            let left = Float(operationsToReduce[index-1])!
+            let operand = operationsToReduce[index]
+            let right = Float(operationsToReduce[index+1])!
             
             let result: Float
-            
+
             switch operand {
                 case "+": result = left + right
                 case "-": result = left - right
                 case "x": result = left * right
                 case "/": result = left / right
-                default: fatalError("Unknown operator !")
+                default: return nil
             }
             
-            operationsToReduce = Array(operationsToReduce.dropFirst(3))
-            operationsToReduce.insert("\(result)", at: 0)
+            operationsToReduce.removeSubrange(index-1...index+1)
+            operationsToReduce.insert("\(result)", at: index-1)
         }
         
         return operationsToReduce
@@ -61,5 +64,19 @@ class Count {
     
     func addOperand(operand: String) {
         number.append(" " + operand + " ")
+    }
+    
+    private func findPriority(operation: [String]) -> Int {
+        
+        if operation.contains("x") && operation.contains("/") {
+            
+            let multiplication = operation.firstIndex(of: "x")!
+            let division = operation.firstIndex(of: "/")!
+            
+            return min(multiplication, division)
+            
+        } else if operation.contains("x") && !operation.contains("/") { return operation.firstIndex(of: "x")!
+        } else if !operation.contains("x") && operation.contains("/") { return operation.firstIndex(of: "/")!
+        } else { return 1 }
     }
 }
