@@ -129,4 +129,12 @@ class SimpleCalcTests: XCTestCase {
 
         XCTAssertEqual(result, ["19.0"])
     }
+
+    func testGivenADivisionBy0_WhenCalculateOperation_ThenReturnDividedBy0() {
+        count.number = "20 / 0"
+
+        let result = count.calculateOperation()
+
+        XCTAssertEqual(result, ["DividedBy0"])
+    }
 }

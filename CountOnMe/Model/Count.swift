@@ -17,7 +17,7 @@ class Count {
     }
 
     var expressionIsCorrect: Bool {
-        return elements.last != "+" && elements.last != "-" && elements.last != "*" && elements.last != "/"
+        return elements.last != "+" && elements.last != "-" && elements.last != "x" && elements.last != "/"
     }
 
     var expressionHaveEnoughElement: Bool {
@@ -48,7 +48,12 @@ class Count {
             case "+": result = left + right
             case "-": result = left - right
             case "x": result = left * right
-            case "/": result = left / right
+            case "/":
+                if right != 0 {
+                    result = left / right
+                } else {
+                    return ["DividedBy0"]
+                }
             default: return nil
             }
 
@@ -65,6 +70,7 @@ class Count {
     }
 
     func addOperand(operand: String) {
+        // If we start the operation with an operand, insert 0 first
         if elements.count == 0 {
             number.append("0")
         }

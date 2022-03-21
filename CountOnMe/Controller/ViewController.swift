@@ -17,7 +17,9 @@ class ViewController: UIViewController {
     @IBOutlet var operandButtons: [UIButton]!
 
     var operands: [Character] = ["+", "-", "*", "/"]
+    var continueOperation = false
     var count = Count()
+
     var expressionHaveResult: Bool {
         return textView.text.firstIndex(of: "=") != nil
     }
@@ -26,7 +28,6 @@ class ViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view.
     }
 
     // MARK: - ACTIONS
@@ -39,17 +40,17 @@ class ViewController: UIViewController {
 
     @IBAction func tappedNumberButton(_ sender: UIButton) {
 
-        // First open case, clear the screen
-        if textView.text.contains("Welcome") {
-            removeWelcomeMessage()
-        }
-
         guard let numberText = sender.title(for: .normal) else {
             return
         }
 
-        // If second condition is empty, that means we added an operand before
-        if expressionHaveResult && textView.text.last == nil {
+        // First open, clear the screen's welcoming message
+        if textView.text.contains("Welcome") {
+            removeWelcomeMessage()
+        }
+
+        // Second condition means the user continued operation after pressing "="
+        if expressionHaveResult && continueOperation == false {
             textView.text = ""
             count.number = ""
         }
@@ -63,10 +64,16 @@ class ViewController: UIViewController {
             removeWelcomeMessage()
         }
 
+        if expressionHaveResult {
+            continueOperation = true
+        }
+
         isTheOperationPossible(button: sender)
     }
 
     @IBAction func tappedEqualButton(_ sender: UIButton) {
+        continueOperation = false
+
         guard count.expressionIsCorrect else {
             return incorrectExpressionError()
         }
@@ -79,10 +86,20 @@ class ViewController: UIViewController {
             return unknownOperandError()
         }
 
-        textView.text.append(" = \(operationToReduce.first!)")
+        if operationToReduce != ["DividedBy0"] {
+            textView.text.append(" = \(operationToReduce.first!)")
 
-        // If we continue the operation, we directly save the previous result
-        count.number = operationToReduce.first!
+            // If we continue the operation, we directly save the previous result
+            count.number = operationToReduce.first!
+        } else {
+            dividedBy0Error()
+            textView.text = ""
+            count.number = ""
+        }
+
+        // These two lines enable the textView's auto scroll
+        let range = NSRange(location: textView.text.count - 1, length: 0)
+        textView.scrollRangeToVisible(range)
     }
 
     // MARK: - FUNCTIONS
@@ -105,7 +122,7 @@ class ViewController: UIViewController {
             count.addOperand(operand: button.title(for: .normal)!)
 
         } else {
-            print(operandAlreadySet())
+            operandAlreadySet()
         }
     }
 
@@ -137,6 +154,13 @@ class ViewController: UIViewController {
     private func operandAlreadySet() {
         let alertVC = UIAlertController(
             title: "Zéro!", message: "Error ! An operand is already set !", preferredStyle: .alert)
+        alertVC.addAction(UIAlertAction(title: "OK", style: .cancel, handler: nil))
+        self.present(alertVC, animated: true, completion: nil)
+    }
+
+    private func dividedBy0Error() {
+        let alertVC = UIAlertController(
+            title: "Zéro!", message: "Error ! You can't divide by 0 !", preferredStyle: .alert)
         alertVC.addAction(UIAlertAction(title: "OK", style: .cancel, handler: nil))
         self.present(alertVC, animated: true, completion: nil)
     }
