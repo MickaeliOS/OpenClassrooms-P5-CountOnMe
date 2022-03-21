@@ -24,25 +24,31 @@ class Count {
         return elements.count >= 3
     }
 
+    var exepressionAlreadyHaveComma: Bool {
+        return elements.last?.last == "."
+    }
+
     // MARK: - FUNCTIONS
 
     func calculateOperation() -> [String]? {
         /* This function will calculate the operation.
-         Furthermore, it will call the function to find operation priorities */
+         Furthermore, it will call a function to find operation priorities */
 
         // Create local copy of elements because it's a "get-only" property
         var operationsToReduce = elements
+        print(elements)
 
         // Iterate over operations while an operand still here
         while operationsToReduce.count > 1 {
 
+            // Here, we get the index where the priority is
             let index = findPriority(operation: operationsToReduce)
 
-            let left = Float(operationsToReduce[index-1])!
+            let left = Double(operationsToReduce[index-1])!
             let operand = operationsToReduce[index]
-            let right = Float(operationsToReduce[index+1])!
+            let right = Double(operationsToReduce[index+1])!
 
-            let result: Float
+            let result: Double
 
             switch operand {
             case "+": result = left + right
@@ -59,7 +65,11 @@ class Count {
 
             // We don't need the first 3 elements, so we delete them in order to add the result of these 3 elements
             operationsToReduce.removeSubrange(index-1...index+1)
-            operationsToReduce.insert("\(result)", at: index-1)
+
+            // In term of precision, we want 2 digits after comma
+            let roundedResult = round(result * 100) / 100.0
+
+            operationsToReduce.insert("\(roundedResult)", at: index-1)
         }
 
         return operationsToReduce
@@ -75,6 +85,10 @@ class Count {
             number.append("0")
         }
         number.append(" " + operand + " ")
+    }
+
+    func addComma() {
+        number.append(".")
     }
 
     private func findPriority(operation: [String]) -> Int {

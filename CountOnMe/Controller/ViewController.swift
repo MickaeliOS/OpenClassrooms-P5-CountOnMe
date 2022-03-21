@@ -16,7 +16,6 @@ class ViewController: UIViewController {
     @IBOutlet var numberButtons: [UIButton]!
     @IBOutlet var operandButtons: [UIButton]!
 
-    var operands: [Character] = ["+", "-", "*", "/"]
     var continueOperation = false
     var count = Count()
 
@@ -33,13 +32,12 @@ class ViewController: UIViewController {
     // MARK: - ACTIONS
 
     @IBAction func clearText(_ sender: UIButton) {
-        // When AC is pressed, we should clear the operation
+        // When AC button is pressed, we should clear the operation
         textView.text = ""
         count.number = ""
     }
 
     @IBAction func tappedNumberButton(_ sender: UIButton) {
-
         guard let numberText = sender.title(for: .normal) else {
             return
         }
@@ -49,11 +47,7 @@ class ViewController: UIViewController {
             removeWelcomeMessage()
         }
 
-        // Second condition means the user continued operation after pressing "="
-        if expressionHaveResult && continueOperation == false {
-            textView.text = ""
-            count.number = ""
-        }
+        didUserFinished()
 
         count.addNumber(numberToAdd: numberText)
         textView.text.append(numberText)
@@ -64,6 +58,8 @@ class ViewController: UIViewController {
             removeWelcomeMessage()
         }
 
+        /* Here, if we got a result, that means the operation is over but we just tapped
+        an operand button, so the operation continue */
         if expressionHaveResult {
             continueOperation = true
         }
@@ -79,7 +75,7 @@ class ViewController: UIViewController {
         }
 
         guard count.expressionHaveEnoughElement else {
-            return incorrectExpressionError()
+            return notEnoughElementsError()
         }
 
         guard let operationToReduce = count.calculateOperation() else {
@@ -102,9 +98,29 @@ class ViewController: UIViewController {
         textView.scrollRangeToVisible(range)
     }
 
+    @IBAction func tappedCommaButton(_ sender: UIButton) {
+        if textView.text.contains("Welcome") {
+            removeWelcomeMessage()
+        }
+
+        if count.exepressionAlreadyHaveComma {
+            doubleCommaError()
+            return
+        }
+
+        // Testing if the User have finished his operation or not
+        didUserFinished()
+
+        textView.text.append(".")
+        count.addComma()
+        print(count.elements)
+    }
+
     // MARK: - FUNCTIONS
 
     private func isTheOperationPossible(button: UIButton) {
+        // We check if an operand can be added
+
         if count.expressionIsCorrect {
             switch button.title(for: .normal) {
             case "+":
@@ -122,12 +138,23 @@ class ViewController: UIViewController {
             count.addOperand(operand: button.title(for: .normal)!)
 
         } else {
-            operandAlreadySet()
+            operandAlreadySetError()
         }
     }
 
     private func removeWelcomeMessage() {
         textView.text = ""
+    }
+
+    private func didUserFinished() {
+        // This function will clear the operation if the user finished it
+
+        // Second condition means the user continued operation after pressing "=", by adding an " operand "
+        if expressionHaveResult && continueOperation == false {
+            textView.text = ""
+            count.number = ""
+        }
+        return
     }
 
     private func incorrectExpressionError() {
@@ -151,7 +178,7 @@ class ViewController: UIViewController {
         self.present(alertVC, animated: true, completion: nil)
     }
 
-    private func operandAlreadySet() {
+    private func operandAlreadySetError() {
         let alertVC = UIAlertController(
             title: "Zéro!", message: "Error ! An operand is already set !", preferredStyle: .alert)
         alertVC.addAction(UIAlertAction(title: "OK", style: .cancel, handler: nil))
@@ -161,6 +188,13 @@ class ViewController: UIViewController {
     private func dividedBy0Error() {
         let alertVC = UIAlertController(
             title: "Zéro!", message: "Error ! You can't divide by 0 !", preferredStyle: .alert)
+        alertVC.addAction(UIAlertAction(title: "OK", style: .cancel, handler: nil))
+        self.present(alertVC, animated: true, completion: nil)
+    }
+
+    private func doubleCommaError() {
+        let alertVC = UIAlertController(
+            title: "Zéro!", message: "Error ! You can't type comma twice in a row !", preferredStyle: .alert)
         alertVC.addAction(UIAlertAction(title: "OK", style: .cancel, handler: nil))
         self.present(alertVC, animated: true, completion: nil)
     }

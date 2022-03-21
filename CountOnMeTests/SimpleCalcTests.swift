@@ -130,11 +130,39 @@ class SimpleCalcTests: XCTestCase {
         XCTAssertEqual(result, ["19.0"])
     }
 
+    // Division by 0
     func testGivenADivisionBy0_WhenCalculateOperation_ThenReturnDividedBy0() {
         count.number = "20 / 0"
 
         let result = count.calculateOperation()
 
         XCTAssertEqual(result, ["DividedBy0"])
+    }
+
+    // Comma works
+    func testGivenCorrectCommaOperation_WhenCalculateOperation_ThenOperationSuccess() {
+        count.number = "20.1 + 3.8"
+
+        let result = count.calculateOperation()
+
+        XCTAssertEqual(result, ["23.9"])
+    }
+
+    // Can't add comma twice
+    func testGivenOperationWithComma_WhenAddAnotherCommaInARow_ThenExepressionAlreadyHaveCommaIsTrue() {
+        count.number = "20."
+
+        count.number.append(".")
+
+        XCTAssertTrue(count.exepressionAlreadyHaveComma)
+    }
+
+    // Adding comma works
+    func testGivenAnOperation_WhenAddingComma_ThenCommaIsAdded() {
+        count.number = "3 + 1"
+
+        count.addComma()
+
+        XCTAssertTrue(count.number == "3 + 1.")
     }
 }
