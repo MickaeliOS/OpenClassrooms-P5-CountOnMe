@@ -23,7 +23,7 @@ class SimpleCalcTests: XCTestCase {
 
         let result = count.calculateOperation()
 
-        XCTAssertEqual(result, ["22.0"])
+        XCTAssertEqual(result, ["22"])
     }
 
     // Priority operand (division)
@@ -32,7 +32,7 @@ class SimpleCalcTests: XCTestCase {
 
         let result = count.calculateOperation()
 
-        XCTAssertEqual(result, ["7.0"])
+        XCTAssertEqual(result, ["7"])
     }
 
     // Two priority operand, must take the first one, then the second one
@@ -41,7 +41,7 @@ class SimpleCalcTests: XCTestCase {
 
         let result = count.calculateOperation()
 
-        XCTAssertEqual(result, ["28.0"])
+        XCTAssertEqual(result, ["28"])
     }
 
     // Correct Expression
@@ -62,14 +62,15 @@ class SimpleCalcTests: XCTestCase {
     func testGivenCanAddAnOperator_WhenAddTheOperator_ThenOperatorIsAdded() {
         count.number = "10 + 2"
 
-        XCTAssertTrue(count.expressionIsCorrect)
+        XCTAssertEqual(count.elements[1], "+")
     }
 
     // Can't add an operator
     func testGivenCantAddAnOperator_WhenAddTheOperator_ThenOperatorIsNotAdded() {
         count.number = "10 + 2 -"
+        count.number += "+"
 
-        XCTAssertFalse(count.expressionIsCorrect)
+        XCTAssertTrue(count.elements.count == 4)
     }
 
     // Enough elements
@@ -108,7 +109,7 @@ class SimpleCalcTests: XCTestCase {
         XCTAssertEqual(count.number, "8")
     }
 
-    // Start the operation by an operand
+    // Start the operation by an operand add a 0 at the beggining
     func testGivenStartingOperationWithOperandFollowedBy3_WhenCalculateOperation_ThenResultIs3AndFirstElementIs0() {
         count.addOperand(operand: "+")
         count.addNumber(numberToAdd: "3")
@@ -116,7 +117,7 @@ class SimpleCalcTests: XCTestCase {
         let result = count.calculateOperation()
 
         XCTAssertEqual(count.elements.first, "0")
-        XCTAssertEqual(result, ["3.0"])
+        XCTAssertEqual(result, ["3"])
     }
 
     // If we want to continue the operation
@@ -127,7 +128,7 @@ class SimpleCalcTests: XCTestCase {
         count.number.append(" + 2")
         let result = count.calculateOperation()
 
-        XCTAssertEqual(result, ["19.0"])
+        XCTAssertEqual(result, ["19"])
     }
 
     // Division by 0

@@ -36,7 +36,6 @@ class Count {
 
         // Create local copy of elements because it's a "get-only" property
         var operationsToReduce = elements
-        print(elements)
 
         // Iterate over operations while an operand still here
         while operationsToReduce.count > 1 {
@@ -69,7 +68,10 @@ class Count {
             // In term of precision, we want 2 digits after comma
             let roundedResult = round(result * 100) / 100.0
 
-            operationsToReduce.insert("\(roundedResult)", at: index-1)
+            // If result is a whole number, let's make it an integer for printing clarity
+            let isInteger = isInteger(number: roundedResult)
+
+            operationsToReduce.insert("\(isInteger)", at: index-1)
         }
 
         return operationsToReduce
@@ -81,6 +83,7 @@ class Count {
 
     func addOperand(operand: String) {
         // If we start the operation with an operand, insert 0 first
+        
         if elements.count == 0 {
             number.append("0")
         }
@@ -92,6 +95,8 @@ class Count {
     }
 
     private func findPriority(operation: [String]) -> Int {
+        // Here, we will check for priority operands in order
+        
         let multiplication = operation.contains("x")
         let division = operation.contains("/")
 
@@ -112,5 +117,18 @@ class Count {
         default:
             return 1
         }
+    }
+
+    private func isInteger(number: Double) -> Any {
+        /* If number is a whole number, let's make it an integer for printing clarity
+         Otherwise, we just return the number itself */
+        
+        let flooredNumber = floor(number)
+
+        if flooredNumber == number {
+            return Int(flooredNumber)
+        }
+
+        return number
     }
 }

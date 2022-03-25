@@ -33,6 +33,7 @@ class ViewController: UIViewController {
 
     @IBAction func clearText(_ sender: UIButton) {
         // When AC button is pressed, we should clear the operation
+
         textView.text = ""
         count.number = ""
     }
@@ -47,8 +48,10 @@ class ViewController: UIViewController {
             removeWelcomeMessage()
         }
 
+        // We need to check if the user is continuing an operation
         didUserFinished()
 
+        // Constructing the operation
         count.addNumber(numberToAdd: numberText)
         textView.text.append(numberText)
     }
@@ -111,9 +114,9 @@ class ViewController: UIViewController {
         // Testing if the User have finished his operation or not
         didUserFinished()
 
+        // Constructing the operation
         textView.text.append(".")
         count.addComma()
-        print(count.elements)
     }
 
     // MARK: - FUNCTIONS
@@ -149,7 +152,6 @@ class ViewController: UIViewController {
     private func didUserFinished() {
         // This function will clear the operation if the user finished it
 
-        // Second condition means the user continued operation after pressing "=", by adding an " operand "
         if expressionHaveResult && continueOperation == false {
             textView.text = ""
             count.number = ""
