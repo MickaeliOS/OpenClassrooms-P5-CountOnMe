@@ -83,7 +83,7 @@ class Count {
 
     func addOperand(operand: String) {
         // If we start the operation with an operand, insert 0 first
-        
+
         if elements.count == 0 {
             number.append("0")
         }
@@ -96,7 +96,7 @@ class Count {
 
     private func findPriority(operation: [String]) -> Int {
         // Here, we will check for priority operands in order
-        
+
         let multiplication = operation.contains("x")
         let division = operation.contains("/")
 
@@ -122,7 +122,7 @@ class Count {
     private func isInteger(number: Double) -> Any {
         /* If number is a whole number, let's make it an integer for printing clarity
          Otherwise, we just return the number itself */
-        
+
         let flooredNumber = floor(number)
 
         if flooredNumber == number {

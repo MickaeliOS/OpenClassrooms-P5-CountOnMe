@@ -18,7 +18,7 @@ class SimpleCalcTests: XCTestCase {
     }
 
     // Priority operand (multiplication)
-    func testGivenPlusAndMultiplicationOperand_WhenCalculateOperation_ThenMultiplicationCalculatedFirst() {
+    func testGivenPlusAndMultiplication_WhenCalculateOperation_ThenMultiplicationCalculatedFirst() {
         count.number = "10 + 6 x 2"
 
         let result = count.calculateOperation()
