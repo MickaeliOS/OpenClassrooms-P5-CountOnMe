@@ -14,9 +14,12 @@
 		1FA43BDD224E569A00F565CB /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1FA43BDB224E569A00F565CB /* LaunchScreen.storyboard */; };
 		1FA43BE8224E569A00F565CB /* SimpleCalcTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FA43BE7224E569A00F565CB /* SimpleCalcTests.swift */; };
 		1FA43BF3224E569A00F565CB /* SimpleCalcUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FA43BF2224E569A00F565CB /* SimpleCalcUITests.swift */; };
+		83ADD61027F1F83D00ED9FBA /* EnumErrors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83ADD60F27F1F83D00ED9FBA /* EnumErrors.swift */; };
 		83AE1EFF27D6147100A4D7DA /* Count.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83AE1EFE27D6147100A4D7DA /* Count.swift */; };
 		83AE1F0027D6147100A4D7DA /* Count.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83AE1EFE27D6147100A4D7DA /* Count.swift */; };
 		83AE1F0127D6147100A4D7DA /* Count.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83AE1EFE27D6147100A4D7DA /* Count.swift */; };
+		83F8E1A727F1FA2A002E1838 /* EnumErrors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83ADD60F27F1F83D00ED9FBA /* EnumErrors.swift */; };
+		83F8E1A827F1FA2B002E1838 /* EnumErrors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83ADD60F27F1F83D00ED9FBA /* EnumErrors.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -50,6 +53,7 @@
 		1FA43BEE224E569A00F565CB /* CountOnMeUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = CountOnMeUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		1FA43BF2224E569A00F565CB /* SimpleCalcUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SimpleCalcUITests.swift; sourceTree = "<group>"; };
 		1FA43BF4224E569A00F565CB /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		83ADD60F27F1F83D00ED9FBA /* EnumErrors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EnumErrors.swift; sourceTree = "<group>"; };
 		83AE1EFE27D6147100A4D7DA /* Count.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Count.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -131,6 +135,7 @@
 			isa = PBXGroup;
 			children = (
 				83AE1EFE27D6147100A4D7DA /* Count.swift */,
+				83ADD60F27F1F83D00ED9FBA /* EnumErrors.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -315,6 +320,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				1FA43BD5224E569900F565CB /* ViewController.swift in Sources */,
+				83ADD61027F1F83D00ED9FBA /* EnumErrors.swift in Sources */,
 				1FA43BD3224E569900F565CB /* AppDelegate.swift in Sources */,
 				83AE1EFF27D6147100A4D7DA /* Count.swift in Sources */,
 			);
@@ -325,6 +331,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				1FA43BE8224E569A00F565CB /* SimpleCalcTests.swift in Sources */,
+				83F8E1A727F1FA2A002E1838 /* EnumErrors.swift in Sources */,
 				83AE1F0027D6147100A4D7DA /* Count.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -334,6 +341,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				1FA43BF3224E569A00F565CB /* SimpleCalcUITests.swift in Sources */,
+				83F8E1A827F1FA2B002E1838 /* EnumErrors.swift in Sources */,
 				83AE1F0127D6147100A4D7DA /* Count.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

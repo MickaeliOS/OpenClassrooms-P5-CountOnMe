@@ -17,22 +17,30 @@ class Count {
     }
 
     var expressionIsCorrect: Bool {
-        return elements.last != "+" && elements.last != "-" && elements.last != "x" && elements.last != "/"
+        return elements.last != "+"
+        && elements.last != "-"
+        && elements.last != "x"
+        && elements.last != "/"
+        && elements.last != "."
     }
 
     var expressionHaveEnoughElement: Bool {
         return elements.count >= 3
     }
 
-    var exepressionAlreadyHaveComma: Bool {
-        return elements.last?.last == "."
-    }
-
     // MARK: - FUNCTIONS
 
-    func calculateOperation() -> [String]? {
+    func calculateOperation() throws -> [String] {
         /* This function will calculate the operation.
          Furthermore, it will call a function to find operation priorities */
+
+        if !expressionIsCorrect {
+            throw EnumErrors.incorrectExpression
+        }
+
+        if !expressionHaveEnoughElement {
+            throw EnumErrors.notEnoughElements
+        }
 
         // Create local copy of elements because it's a "get-only" property
         var operationsToReduce = elements
@@ -57,9 +65,9 @@ class Count {
                 if right != 0 {
                     result = left / right
                 } else {
-                    return ["DividedBy0"]
+                    throw EnumErrors.dividedBy0
                 }
-            default: return nil
+            default: throw EnumErrors.unknownOperand
             }
 
             // We don't need the first 3 elements, so we delete them in order to add the result of these 3 elements
@@ -73,25 +81,11 @@ class Count {
 
             operationsToReduce.insert("\(isInteger)", at: index-1)
         }
-
         return operationsToReduce
     }
 
     func addNumber(numberToAdd: String) {
         number.append(numberToAdd)
-    }
-
-    func addOperand(operand: String) {
-        // If we start the operation with an operand, insert 0 first
-
-        if elements.count == 0 {
-            number.append("0")
-        }
-        number.append(" " + operand + " ")
-    }
-
-    func addComma() {
-        number.append(".")
     }
 
     private func findPriority(operation: [String]) -> Int {
@@ -130,5 +124,34 @@ class Count {
         }
 
         return number
+    }
+
+    func addOperand(operand: String) throws {
+        if !expressionIsCorrect {
+            throw EnumErrors.operandAlreadySet
+        }
+
+        switch operand {
+        case "+", "-", "x", "/":
+            // If we start the operation with an operand, insert 0 first
+
+            if elements.count == 0 {
+                number.append("0")
+            }
+            number.append(" " + operand + " ")
+        default:
+            throw EnumErrors.unknownOperand
+        }
+    }
+
+    func addComma() throws {
+        if !expressionIsCorrect {
+            throw EnumErrors.cantAddComma
+        }
+
+        if elements.last?.last == "." {
+            throw EnumErrors.doubleComma
+        }
+        number.append(".")
     }
 }

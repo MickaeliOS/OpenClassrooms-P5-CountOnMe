@@ -57,6 +57,10 @@ class ViewController: UIViewController {
     }
 
     @IBAction func tappedOperandButton(_ sender: UIButton) {
+        guard let operandText = sender.title(for: .normal) else {
+            return
+        }
+
         if textView.text.contains("Welcome") {
             removeWelcomeMessage()
         }
@@ -67,33 +71,33 @@ class ViewController: UIViewController {
             continueOperation = true
         }
 
-        isTheOperationPossible(button: sender)
+        do {
+            try count.addOperand(operand: operandText)
+            textView.text.append(" " + operandText + " ")
+        } catch {
+            createError(message: error.localizedDescription)
+        }
     }
 
     @IBAction func tappedEqualButton(_ sender: UIButton) {
         continueOperation = false
+        print(count.elements)
 
-        guard count.expressionIsCorrect else {
-            return incorrectExpressionError()
-        }
+        do {
+            let result = try count.calculateOperation()
 
-        guard count.expressionHaveEnoughElement else {
-            return notEnoughElementsError()
-        }
-
-        guard let operationToReduce = count.calculateOperation() else {
-            return unknownOperandError()
-        }
-
-        if operationToReduce != ["DividedBy0"] {
-            textView.text.append(" = \(operationToReduce.first!)")
+            textView.text.append(" = \(result.first!)")
 
             // If we continue the operation, we directly save the previous result
-            count.number = operationToReduce.first!
-        } else {
-            dividedBy0Error()
-            textView.text = ""
-            count.number = ""
+            count.number = result.first!
+
+        } catch {
+            createError(message: error.localizedDescription)
+
+            if error as? EnumErrors == EnumErrors.dividedBy0 {
+                textView.text = ""
+                count.number = ""
+            }
         }
 
         // These two lines enable the textView's auto scroll
@@ -106,44 +110,20 @@ class ViewController: UIViewController {
             removeWelcomeMessage()
         }
 
-        if count.exepressionAlreadyHaveComma {
-            doubleCommaError()
-            return
+        do {
+            try count.addComma()
+            // Testing if the User have finished his operation or not
+            didUserFinished()
+
+            // Constructing the operation
+            textView.text.append(".")
+
+        } catch {
+            createError(message: error.localizedDescription)
         }
-
-        // Testing if the User have finished his operation or not
-        didUserFinished()
-
-        // Constructing the operation
-        textView.text.append(".")
-        count.addComma()
     }
 
     // MARK: - FUNCTIONS
-
-    private func isTheOperationPossible(button: UIButton) {
-        // We check if an operand can be added
-
-        if count.expressionIsCorrect {
-            switch button.title(for: .normal) {
-            case "+":
-                textView.text.append(" + ")
-            case "-":
-                textView.text.append(" - ")
-            case "x":
-                textView.text.append(" * ")
-            case "/":
-                textView.text.append(" / ")
-            default:
-                return unknownOperandError()
-            }
-
-            count.addOperand(operand: button.title(for: .normal)!)
-
-        } else {
-            operandAlreadySetError()
-        }
-    }
 
     private func removeWelcomeMessage() {
         textView.text = ""
@@ -159,44 +139,9 @@ class ViewController: UIViewController {
         return
     }
 
-    private func incorrectExpressionError() {
+    private func createError(message: String) {
         let alertVC = UIAlertController(
-            title: "Zéro!", message: "Error ! Expression can't end with an operand !", preferredStyle: .alert)
-        alertVC.addAction(UIAlertAction(title: "OK", style: .cancel, handler: nil))
-        self.present(alertVC, animated: true, completion: nil)
-    }
-
-    private func notEnoughElementsError() {
-        let alertVC = UIAlertController(
-            title: "Zéro!", message: "Error ! Expression doesn't have enough elements !", preferredStyle: .alert)
-        alertVC.addAction(UIAlertAction(title: "OK", style: .cancel, handler: nil))
-        self.present(alertVC, animated: true, completion: nil)
-    }
-
-    private func unknownOperandError() {
-        let alertVC = UIAlertController(
-            title: "Zéro!", message: "Error ! unknown operand !", preferredStyle: .alert)
-        alertVC.addAction(UIAlertAction(title: "OK", style: .cancel, handler: nil))
-        self.present(alertVC, animated: true, completion: nil)
-    }
-
-    private func operandAlreadySetError() {
-        let alertVC = UIAlertController(
-            title: "Zéro!", message: "Error ! An operand is already set !", preferredStyle: .alert)
-        alertVC.addAction(UIAlertAction(title: "OK", style: .cancel, handler: nil))
-        self.present(alertVC, animated: true, completion: nil)
-    }
-
-    private func dividedBy0Error() {
-        let alertVC = UIAlertController(
-            title: "Zéro!", message: "Error ! You can't divide by 0 !", preferredStyle: .alert)
-        alertVC.addAction(UIAlertAction(title: "OK", style: .cancel, handler: nil))
-        self.present(alertVC, animated: true, completion: nil)
-    }
-
-    private func doubleCommaError() {
-        let alertVC = UIAlertController(
-            title: "Zéro!", message: "Error ! You can't type comma twice in a row !", preferredStyle: .alert)
+            title: "Zéro!", message: message, preferredStyle: .alert)
         alertVC.addAction(UIAlertAction(title: "OK", style: .cancel, handler: nil))
         self.present(alertVC, animated: true, completion: nil)
     }

@@ -240,14 +240,11 @@
                                 </variation>
                             </stackView>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="ogr-Aw-e1h">
-                                <rect key="frame" x="255.5" y="267.5" width="48.5" height="282"/>
+                                <rect key="frame" x="234" y="267.5" width="70" height="282"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="DQU-P5-55X">
-                                        <rect key="frame" x="0.0" y="0.0" width="48.5" height="48.5"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="70" height="48.5"/>
                                         <color key="backgroundColor" red="0.46913260919999999" green="0.7149516575" blue="0.62407517239999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                        <constraints>
-                                            <constraint firstAttribute="width" secondItem="DQU-P5-55X" secondAttribute="height" multiplier="1:1" id="r0K-J1-zCz"/>
-                                        </constraints>
                                         <fontDescription key="fontDescription" type="system" pointSize="35"/>
                                         <state key="normal" title="+">
                                             <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -257,7 +254,7 @@
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="3zr-HC-0N9">
-                                        <rect key="frame" x="0.0" y="58.5" width="48.5" height="48"/>
+                                        <rect key="frame" x="0.0" y="58.5" width="70" height="48"/>
                                         <color key="backgroundColor" red="0.87294975829999999" green="0.37112226879999999" blue="0.32504552809999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="35"/>
                                         <state key="normal" title="-">
@@ -268,7 +265,7 @@
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="HIo-nK-bEp">
-                                        <rect key="frame" x="0.0" y="116.5" width="48.5" height="48.5"/>
+                                        <rect key="frame" x="0.0" y="116.5" width="70" height="48.5"/>
                                         <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="35"/>
                                         <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
@@ -280,7 +277,7 @@
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="PkY-Qp-Kcx">
-                                        <rect key="frame" x="0.0" y="175" width="48.5" height="48.5"/>
+                                        <rect key="frame" x="0.0" y="175" width="70" height="48.5"/>
                                         <color key="backgroundColor" systemColor="systemBrownColor"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="35"/>
                                         <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
@@ -292,7 +289,7 @@
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Nas-CF-jGR">
-                                        <rect key="frame" x="0.0" y="233.5" width="48.5" height="48.5"/>
+                                        <rect key="frame" x="0.0" y="233.5" width="70" height="48.5"/>
                                         <color key="backgroundColor" systemColor="systemPurpleColor"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="35"/>
                                         <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
@@ -318,6 +315,7 @@
                             <constraint firstItem="ogr-Aw-e1h" firstAttribute="top" secondItem="T2H-yn-nBB" secondAttribute="bottom" constant="20" id="VDT-6l-9dI"/>
                             <constraint firstItem="isI-Gg-Iye" firstAttribute="top" secondItem="T2H-yn-nBB" secondAttribute="bottom" constant="20" id="Xex-jw-j3n"/>
                             <constraint firstItem="AWJ-Vl-uau" firstAttribute="bottom" secondItem="isI-Gg-Iye" secondAttribute="bottom" constant="20" id="bUw-YK-ElA"/>
+                            <constraint firstItem="ogr-Aw-e1h" firstAttribute="leading" secondItem="isI-Gg-Iye" secondAttribute="trailing" constant="10" id="gn2-uq-0py"/>
                             <constraint firstItem="ogr-Aw-e1h" firstAttribute="trailing" secondItem="T2H-yn-nBB" secondAttribute="trailing" id="jJw-VJ-JRQ"/>
                             <constraint firstItem="T2H-yn-nBB" firstAttribute="centerX" secondItem="AWJ-Vl-uau" secondAttribute="centerX" id="vIE-OU-mOf"/>
                         </constraints>
@@ -333,6 +331,7 @@
                                 <exclude reference="Xex-jw-j3n"/>
                                 <exclude reference="0Xm-eW-lzA"/>
                                 <exclude reference="VDT-6l-9dI"/>
+                                <exclude reference="gn2-uq-0py"/>
                                 <exclude reference="jJw-VJ-JRQ"/>
                             </mask>
                         </variation>
@@ -347,6 +346,7 @@
                                 <include reference="Xex-jw-j3n"/>
                                 <include reference="0Xm-eW-lzA"/>
                                 <include reference="VDT-6l-9dI"/>
+                                <include reference="gn2-uq-0py"/>
                                 <include reference="jJw-VJ-JRQ"/>
                             </mask>
                         </variation>
