@@ -25,42 +25,42 @@ extension EnumErrors: LocalizedError {
         switch self {
         case .unknownOperand:
             return NSLocalizedString(
-                "Error ! unknown operand !",
+                "unknown operand !",
                 comment: ""
             )
         case .operandAlreadySet:
             return NSLocalizedString(
-                "Error ! An operand is already set !",
+                "An operand is already set !",
                 comment: ""
             )
         case .dividedBy0:
             return NSLocalizedString(
-                "Error ! You can't divide by 0 !",
+                "You can't divide by 0 !",
                 comment: ""
             )
         case .cantAddComma:
             return NSLocalizedString(
-                "Error ! You can't type comma right after an operand !",
+                "You can't type comma right after an operand !",
                 comment: ""
             )
         case .doubleComma:
             return NSLocalizedString(
-                "Error ! You can't type comma twice in a row !",
+                "You can't type comma twice in a row !",
                 comment: ""
             )
         case .incorrectExpression:
             return NSLocalizedString(
-                "Error ! Expression must end with a number !",
+                "Expression must end with a number !",
                 comment: ""
             )
         case .notEnoughElements:
             return NSLocalizedString(
-                "Error ! Expression doesn't have enough elements !",
+                "Expression doesn't have enough elements !",
                 comment: ""
             )
         case .commaAlreadySet:
             return NSLocalizedString(
-                "Error ! You already put a comma !",
+                "You already put a comma !",
                 comment: ""
             )
         }

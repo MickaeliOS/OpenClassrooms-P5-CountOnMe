@@ -38,29 +38,12 @@ class ViewController: UIViewController {
         count.number = ""
     }
 
-    @IBAction func tappedNumberButton(_ sender: UIButton) {
-        guard let numberText = sender.title(for: .normal) else {
-            return
-        }
-
-        // First open, clear the screen's welcoming message
-        if textView.text.contains("Welcome") {
-            removeWelcomeMessage()
-        }
-
-        // We need to check if the user is continuing an operation
-        didUserFinished()
-
-        // Constructing the operation
-        count.addNumber(numberToAdd: numberText)
-        textView.text.append(numberText)
-    }
-
     @IBAction func tappedOperandButton(_ sender: UIButton) {
         guard let operandText = sender.title(for: .normal) else {
             return
         }
 
+        // First open, clear the screen's welcoming message
         if textView.text.contains("Welcome") {
             removeWelcomeMessage()
         }
@@ -78,6 +61,24 @@ class ViewController: UIViewController {
         } catch {
             createError(message: error.localizedDescription)
         }
+    }
+
+    @IBAction func tappedNumberButton(_ sender: UIButton) {
+        guard let numberText = sender.title(for: .normal) else {
+            return
+        }
+
+        // First open, clear the screen's welcoming message
+        if textView.text.contains("Welcome") {
+            removeWelcomeMessage()
+        }
+
+        // We need to check if the user is continuing an operation
+        didUserFinished()
+
+        // Constructing the operation
+        count.addNumber(numberToAdd: numberText)
+        textView.text.append(numberText)
     }
 
     @IBAction func tappedEqualButton(_ sender: UIButton) {
@@ -112,6 +113,7 @@ class ViewController: UIViewController {
             count.number = ""
         }
 
+        // First open, clear the screen's welcoming message
         if textView.text.contains("Welcome") {
             removeWelcomeMessage()
         }
@@ -119,8 +121,6 @@ class ViewController: UIViewController {
         // We'll try to add the comma, if it fails, we got an appropriate error
         do {
             try count.addComma()
-            // Testing if the User have finished his operation or not
-            didUserFinished()
 
             // Constructing the operation
             textView.text.append(".")
@@ -148,7 +148,7 @@ class ViewController: UIViewController {
 
     private func createError(message: String) {
         let alertVC = UIAlertController(
-            title: "Zéro!", message: message, preferredStyle: .alert)
+            title: "Error!", message: message, preferredStyle: .alert)
         alertVC.addAction(UIAlertAction(title: "OK", style: .cancel, handler: nil))
         self.present(alertVC, animated: true, completion: nil)
     }
