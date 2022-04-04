@@ -71,6 +71,7 @@ class ViewController: UIViewController {
             continueOperation = true
         }
 
+        // We'll try to add the operand, if it fails, we got an appropriate error
         do {
             try count.addOperand(operand: operandText)
             textView.text.append(" " + operandText + " ")
@@ -81,8 +82,8 @@ class ViewController: UIViewController {
 
     @IBAction func tappedEqualButton(_ sender: UIButton) {
         continueOperation = false
-        print(count.elements)
 
+        // We'll try to calculate the expression, if it fails, we got an appropriate error
         do {
             let result = try count.calculateOperation()
 
@@ -106,10 +107,16 @@ class ViewController: UIViewController {
     }
 
     @IBAction func tappedCommaButton(_ sender: UIButton) {
+        if expressionHaveResult {
+            textView.text = ""
+            count.number = ""
+        }
+
         if textView.text.contains("Welcome") {
             removeWelcomeMessage()
         }
 
+        // We'll try to add the comma, if it fails, we got an appropriate error
         do {
             try count.addComma()
             // Testing if the User have finished his operation or not

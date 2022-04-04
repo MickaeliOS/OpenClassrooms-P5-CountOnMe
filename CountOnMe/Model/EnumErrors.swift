@@ -9,12 +9,19 @@
 import Foundation
 
 enum EnumErrors: Error {
-    case unknownOperand, operandAlreadySet, dividedBy0, cantAddComma, doubleComma
-    case incorrectExpression, notEnoughElements
+    case unknownOperand,
+         operandAlreadySet,
+         dividedBy0,
+         cantAddComma,
+         doubleComma,
+         incorrectExpression,
+         notEnoughElements,
+         commaAlreadySet
 }
 
 extension EnumErrors: LocalizedError {
     var errorDescription: String? {
+
         switch self {
         case .unknownOperand:
             return NSLocalizedString(
@@ -49,6 +56,11 @@ extension EnumErrors: LocalizedError {
         case .notEnoughElements:
             return NSLocalizedString(
                 "Error ! Expression doesn't have enough elements !",
+                comment: ""
+            )
+        case .commaAlreadySet:
+            return NSLocalizedString(
+                "Error ! You already put a comma !",
                 comment: ""
             )
         }

@@ -21,7 +21,6 @@ class Count {
         && elements.last != "-"
         && elements.last != "x"
         && elements.last != "/"
-        && elements.last != "."
     }
 
     var expressionHaveEnoughElement: Bool {
@@ -133,8 +132,8 @@ class Count {
 
         switch operand {
         case "+", "-", "x", "/":
-            // If we start the operation with an operand, insert 0 first
 
+            // If we start the operation with an operand, insert 0 first
             if elements.count == 0 {
                 number.append("0")
             }
@@ -151,6 +150,10 @@ class Count {
 
         if elements.last?.last == "." {
             throw EnumErrors.doubleComma
+        }
+
+        if let result = (elements.last?.contains(".")), result == true {
+            throw EnumErrors.commaAlreadySet
         }
         number.append(".")
     }
