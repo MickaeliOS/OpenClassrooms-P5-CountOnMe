@@ -200,55 +200,55 @@ class SimpleCalcTests: XCTestCase {
     func testGivenUnknownOperandError_WhenCheckingMessage_ThenWeHaveTheCorrectOne() {
         let error = EnumErrors.unknownOperand
 
-        XCTAssertEqual(error.localizedDescription, "unknown operand !")
+        XCTAssertEqual(error.localizedDescription, "unknown operand!")
     }
 
     // operandAlreadySet test
     func testGivenOperandAlreadySetErorr_WhenCheckingMessage_ThenWeHaveTheCorrectOne() {
         let error = EnumErrors.operandAlreadySet
 
-        XCTAssertEqual(error.localizedDescription, "An operand is already set !")
+        XCTAssertEqual(error.localizedDescription, "An operand is already set!")
     }
 
     // dividedBy0 test
     func testGivenDividedBy0Error_WhenCheckingMessage_ThenWeHaveTheCorrectOne() {
         let error = EnumErrors.dividedBy0
 
-        XCTAssertEqual(error.localizedDescription, "You can't divide by 0 !")
+        XCTAssertEqual(error.localizedDescription, "You can't divide by 0!")
     }
 
     // cantAddComma test
     func testGivenCantAddCommaError_WhenCheckingMessage_ThenWeHaveTheCorrectOne() {
         let error = EnumErrors.cantAddComma
 
-        XCTAssertEqual(error.localizedDescription, "You can't type comma right after an operand !")
+        XCTAssertEqual(error.localizedDescription, "You can't type comma right after an operand!")
     }
 
     // doubleComma test
     func testGivenDoubleCommaError_WhenCheckingMessage_ThenWeHaveTheCorrectOne() {
         let error = EnumErrors.doubleComma
 
-        XCTAssertEqual(error.localizedDescription, "You can't type comma twice in a row !")
+        XCTAssertEqual(error.localizedDescription, "You can't type comma twice in a row!")
     }
 
     // incorrectExpression test
     func testGivenIncorrectExpressionError_WhenCheckingMessage_ThenWeHaveTheCorrectOne() {
         let error = EnumErrors.incorrectExpression
 
-        XCTAssertEqual(error.localizedDescription, "Expression must end with a number !")
+        XCTAssertEqual(error.localizedDescription, "Expression must end with a number!")
     }
 
     // notEnoughElements test
     func testGivenNotEnoughElementsError_WhenCheckingMessage_ThenWeHaveTheCorrectOne() {
         let error = EnumErrors.notEnoughElements
 
-        XCTAssertEqual(error.localizedDescription, "Expression doesn't have enough elements !")
+        XCTAssertEqual(error.localizedDescription, "Expression doesn't have enough elements!")
     }
 
     // commaAlreadySet test
     func testGivenCommaAlreadySetError_WhenCheckingMessage_ThenWeHaveTheCorrectOne() {
         let error = EnumErrors.commaAlreadySet
 
-        XCTAssertEqual(error.localizedDescription, "You already put a comma !")
+        XCTAssertEqual(error.localizedDescription, "You already put a comma!")
     }
 }
