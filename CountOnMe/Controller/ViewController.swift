@@ -147,6 +147,8 @@ class ViewController: UIViewController {
     }
 
     private func createError(message: String) {
+        // Display the error message to the user
+
         let alertVC = UIAlertController(
             title: "Error!", message: message, preferredStyle: .alert)
         alertVC.addAction(UIAlertAction(title: "OK", style: .cancel, handler: nil))

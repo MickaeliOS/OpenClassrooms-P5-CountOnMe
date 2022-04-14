@@ -50,6 +50,7 @@ class Count {
             // Here, we get the index where the priority is
             let index = findPriority(operation: operationsToReduce)
 
+            // The block to calculate
             let left = Double(operationsToReduce[index-1])!
             let operand = operationsToReduce[index]
             let right = Double(operationsToReduce[index+1])!
@@ -108,6 +109,7 @@ class Count {
             return operation.firstIndex(of: "/")!
 
         default:
+            // We return 1 if there is no priority, that means the first operand
             return 1
         }
     }
@@ -144,6 +146,8 @@ class Count {
     }
 
     func addComma() throws {
+
+        // Several controls are needed before adding the comma
         if !expressionIsCorrect {
             throw EnumErrors.cantAddComma
         }
