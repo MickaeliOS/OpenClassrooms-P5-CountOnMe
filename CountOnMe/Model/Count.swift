@@ -51,11 +51,11 @@ class Count {
             let index = findPriority(operation: operationsToReduce)
 
             // The block to calculate
-            let left = Double(operationsToReduce[index-1])!
+            let left = Decimal(string: operationsToReduce[index-1])!
             let operand = operationsToReduce[index]
-            let right = Double(operationsToReduce[index+1])!
+            let right = Decimal(string: operationsToReduce[index+1])!
 
-            let result: Double
+            let result: Decimal
 
             switch operand {
             case "+": result = left + right
@@ -73,13 +73,7 @@ class Count {
             // We don't need the first 3 elements, so we delete them in order to add the result of these 3 elements
             operationsToReduce.removeSubrange(index-1...index+1)
 
-            // In term of precision, we want 2 digits after comma
-            let roundedResult = round(result * 100) / 100.0
-
-            // If result is a whole number, let's make it an integer for printing clarity
-            let isInteger = isInteger(number: roundedResult)
-
-            operationsToReduce.insert("\(isInteger)", at: index-1)
+            operationsToReduce.insert("\(result)", at: index-1)
         }
         return operationsToReduce
     }
@@ -112,19 +106,6 @@ class Count {
             // We return 1 if there is no priority, that means the first operand
             return 1
         }
-    }
-
-    private func isInteger(number: Double) -> Any {
-        /* If number is a whole number, let's make it an integer for printing clarity
-         Otherwise, we just return the number itself */
-
-        let flooredNumber = floor(number)
-
-        if flooredNumber == number {
-            return Int(flooredNumber)
-        }
-
-        return number
     }
 
     func addOperand(operand: String) throws {
