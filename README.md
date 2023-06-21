@@ -7,4 +7,4 @@ This project not only introduced me to Unit Testing but also allowed me to imple
 
 As we progress through this project, I'm excited to see myself evolve into a full-fledged iOS developer. Stay connected and join me on this journey to explore the next exciting project!
 
-![Model](Divers/CountOnMe.png)](https://github.com/MickaeliOS/OpenClassrooms-P5-CountOnMe/blob/master/Divers/CountOnMe.png)
+<img src="https://github.com/MickaeliOS/OpenClassrooms-P5-CountOnMe/blob/master/Divers/CountOnMe.png" width="200">
